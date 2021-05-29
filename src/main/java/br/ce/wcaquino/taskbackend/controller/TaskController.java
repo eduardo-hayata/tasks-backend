@@ -33,10 +33,10 @@ public class TaskController {
 		if(todo.getTask() == null || todo.getTask() == "") {
 			throw new ValidationException("Fill the task description");
 		}
-		if(todo.getDueDate() == null) {
+		if(todo.getDueDate() == null) { // Se estiver sem a data
 			throw new ValidationException("Fill the due date");
 		}
-		if(!DateUtils.isEqualOrFutureDate(todo.getDueDate())) {
+		if(!DateUtils.isEqualOrFutureDate(todo.getDueDate())) { // se for data passada
 			throw new ValidationException("Due date must not be in past");
 		}
 		Task saved = todoRepo.save(todo);
