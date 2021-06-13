@@ -34,5 +34,14 @@ pipeline {
                 }
             }
         }
+        stage ('Deploy FrontEnd') {
+            steps {
+                dir('frontend') {
+                    git credentialsId: 'github_login', url: 'https://github.com/eduardo-hayata/tasks-frontend'
+                    bat 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://192.168.1.106:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+            }
+        }
     }
 }
